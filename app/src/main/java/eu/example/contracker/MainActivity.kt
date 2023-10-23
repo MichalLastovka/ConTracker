@@ -2,6 +2,7 @@ package eu.example.contracker
 
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +37,9 @@ import eu.example.contracker.ui.theme.ConTrackerTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        fun toastMessage(message:String){
+            Toast.makeText(this,message, Toast.LENGTH_LONG).show()
+        }
         setContent {
             ConTrackerTheme {
                 // A surface container using the 'background' color from the theme
@@ -65,18 +69,22 @@ fun AddContField() {
                 .fillMaxWidth()
                 .padding(all = 5.dp),
             value = text,
-            onValueChange = { text = it },
+            onValueChange = { text = it.uppercase() },
             label = { Text("Zadej číslo kontejneru") }
         )
         ElevatedButton(onClick = { if (text.isNotBlank())
-            containersList.add(text);
+            containersList.add(text.uppercase());
             text = ""
         }) {
             Text(text = "Přidej")
         }
         @Composable
         fun Container(id: String) {
-            Row (horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(all = 10.dp)){
+            Row (
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(all = 10.dp)
+            ){
                 IconButton(onClick = { containersList.remove(id) }) {
                     Icon(imageVector = Icons.Default.Delete, contentDescription = "delete")
 
