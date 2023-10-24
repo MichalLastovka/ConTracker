@@ -1,8 +1,11 @@
 package eu.example.contracker
 
-import ContainerData1
-import retrofit2.Response
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
-interface ContainerAPI {
-    fun getContainer(): Response<ContainerData1>
+interface myAPI {
+    @GET("api/container/auskunft/{container}")
+    fun getMyContainer(@Path(value = "container") container: String): Call<ContainerData>
 }
